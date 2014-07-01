@@ -7,48 +7,64 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-    <LinearLayout
-        android:id="@+id/add_restaurant_widget"
+    <RadioGroup
+        android:id="@+id/restaurant_widget_buttons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:checkedButton="@+id/add_restaurant_radio"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/add_restaurant_button"
+        <RadioButton
+            android:id="@id/add_restaurant_radio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:background="@drawable/add_restaurant_button_background"
+            android:background="@drawable/add_restaurant_radio_background"
+            android:button="@null"
+            android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:src="@drawable/ic_action_new"/>
+            android:text="Add"/>
 
-        <ImageButton
-            android:id="@+id/search_restaurant_button"
+        <RadioButton
+            android:id="@+id/search_restaurant_radio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:background="@drawable/search_restaurant_button_background"
+            android:background="@drawable/search_restaurant_radio_background"
+            android:button="@null"
+            android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:src="@drawable/ic_action_search"/>
-
-    </LinearLayout>
+            android:text="Search"/>
+    </RadioGroup>
 
     <RelativeLayout
+        android:id="@+id/restaurant_widget_text_box_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_restaurant_widget"
+        android:layout_below="@id/restaurant_widget_buttons"
         android:background="@drawable/restaurant_widget_text_box_background"
-        android:paddingBottom="10dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:paddingTop="5dp">
 
         <EditText
             android:id="@+id/restaurant_widget_text_box"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/restaurant_name"/>
+            android:layout_toLeftOf="@+id/restaurant_widget_action_button"
+            android:hint="@string/restaurant_name"
+            android:inputType="textCapWords"/>
+
+        <ImageButton
+            android:id="@id/restaurant_widget_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/restaurant_widget_action_button_background"
+            android:src="@drawable/ic_action_new"/>
 
     </RelativeLayout>
 
@@ -56,7 +72,7 @@
         android:id="@+id/restaurant_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/restaurant_widget_text_box">
+        android:layout_below="@id/restaurant_widget_text_box_container">
 
     </ListView>
 

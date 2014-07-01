@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="restaurant_name">Restaurant Name</string>
+    <string name="enter_restaurant_name">Enter a Restaurant Name</string>
+    <string name="added">Added</string>
 
 </resources>

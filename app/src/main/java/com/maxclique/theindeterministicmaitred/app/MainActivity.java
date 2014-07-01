@@ -2,39 +2,35 @@ package com.maxclique.theindeterministicmaitred.app;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+        implements ShowRestaurantsFragment.OnAddRestaurantListener {
 
-    FragmentHelper mFHelper;
+    private FragmentHelper mFHelper;
+    private List<Restaurant> mRestaurants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mRestaurants = new ArrayList<Restaurant>();
+
         mFHelper = new FragmentHelper(this, R.id.main_container);
         setContentView(R.layout.activity_main);
         mFHelper.goToHome();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    public List<Restaurant> getRestaurants() {
+        return mRestaurants;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onAddRestaurant(Restaurant restaurant) {
+        mRestaurants.add(restaurant);
+        mFHelper.refreshCurrentFragment();
     }
 }

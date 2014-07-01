@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 
 /**
  * Created by Austin on 6/30/2014.
@@ -24,6 +23,16 @@ public class FragmentHelper {
     public void goToHome() {
         FragmentTransaction ft = mFManager.beginTransaction();
         Fragment fragment = new ShowRestaurantsFragment();
-        ft.replace(mContainerResource,fragment).commit();
+        ft.replace(mContainerResource, fragment).commit();
+    }
+
+    public void refreshCurrentFragment() {
+        RefreshableFragment fragment = (RefreshableFragment)
+                mFManager.findFragmentById(mContainerResource);
+        fragment.refresh();
+    }
+
+    public interface RefreshableFragment {
+        public void refresh();
     }
 }

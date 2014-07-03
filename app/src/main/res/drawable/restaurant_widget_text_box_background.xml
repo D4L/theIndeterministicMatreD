@@ -13,8 +13,8 @@
         <shape>
             <solid android:color="#d2d2d2"/>
             <corners
-                android:bottomLeftRadius="20dp"
-                android:bottomRightRadius="20dp"/>
+                android:bottomLeftRadius="13dp"
+                android:bottomRightRadius="13dp"/>
         </shape>
     </item>
 </layer-list>

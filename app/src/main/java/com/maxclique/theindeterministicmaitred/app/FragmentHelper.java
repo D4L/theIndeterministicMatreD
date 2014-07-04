@@ -26,6 +26,12 @@ public class FragmentHelper {
         ft.replace(mContainerResource, fragment).commit();
     }
 
+    public void goToShowMenu() {
+        FragmentTransaction ft = mFManager.beginTransaction();
+        Fragment fragment = new ShowMenuFragment();
+        ft.replace(mContainerResource, fragment).addToBackStack(null).commit();
+    }
+
     public void refreshCurrentFragment() {
         RefreshableFragment fragment = (RefreshableFragment)
                 mFManager.findFragmentById(mContainerResource);

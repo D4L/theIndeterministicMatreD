@@ -23,6 +23,10 @@ public class MainActivity extends Activity
         mFHelper.goToHome();
     }
 
+    public void displayShowMenu() {
+        mFHelper.goToShowMenu();
+    }
+
     public List<Restaurant> getRestaurants() {
         return mRestaurants.getRestaurantList();
     }

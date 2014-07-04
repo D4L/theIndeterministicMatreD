@@ -101,12 +101,16 @@ public class ShowRestaurantsFragment extends Fragment
 
     private class RestaurantOnItemClickListener implements AdapterView.OnItemClickListener {
         Activity mActivity;
+
         public RestaurantOnItemClickListener(Activity activity) {
             mActivity = activity;
         }
+
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            ((MainActivity)mActivity).displayShowMenu();
+            RestaurantAdapter restaurantAdapter = (RestaurantAdapter) adapterView.getAdapter();
+            Restaurant restaurant = restaurantAdapter.getItem(position);
+            ((MainActivity) mActivity).displayShowMenu(restaurant);
         }
     }
 

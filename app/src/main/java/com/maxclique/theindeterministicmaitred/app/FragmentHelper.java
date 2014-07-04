@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Bundle;
 
 /**
  * Created by Austin on 6/30/2014.
@@ -26,9 +27,12 @@ public class FragmentHelper {
         ft.replace(mContainerResource, fragment).commit();
     }
 
-    public void goToShowMenu() {
+    public void goToShowMenu(Restaurant restaurant) {
         FragmentTransaction ft = mFManager.beginTransaction();
         Fragment fragment = new ShowMenuFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", restaurant);
+        fragment.setArguments(args);
         ft.replace(mContainerResource, fragment).addToBackStack(null).commit();
     }
 

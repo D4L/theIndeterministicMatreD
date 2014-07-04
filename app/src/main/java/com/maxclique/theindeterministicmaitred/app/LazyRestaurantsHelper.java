@@ -49,6 +49,15 @@ public class LazyRestaurantsHelper {
         mRestaurants.add(restaurant);
     }
 
+    public void loadRestaurant(Restaurant restaurant) {
+        if (restaurant.isLoaded()) {
+            return;
+        }
+        RestaurantMenu menu = new RestaurantMenu();
+        restaurant.setMenu(menu);
+        restaurant.setLoaded(true);
+    }
+
     public void save() {
         try {
             File restaurantsFile = mFileHelper.getRestaurantFile();
@@ -61,6 +70,10 @@ public class LazyRestaurantsHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public interface LazyResource {
+        public boolean isLoaded();
+        public void setLoaded(boolean loaded);
     }
 }

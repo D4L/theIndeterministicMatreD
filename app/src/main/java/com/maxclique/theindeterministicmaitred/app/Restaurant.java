@@ -19,7 +19,11 @@ public class Restaurant implements LazyRestaurantsHelper.LazyResource, Parcelabl
     }
 
     public Restaurant(Parcel source) {
-
+        mName = source.readString();
+        boolean[] bools = source.createBooleanArray();
+        source.readBooleanArray(bools);
+        mLoaded = bools[0];
+        mMenu = source.readParcelable(RestaurantMenu.class.getClassLoader());
     }
 
     public String getName() {
@@ -51,7 +55,10 @@ public class Restaurant implements LazyRestaurantsHelper.LazyResource, Parcelabl
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(mName);
+        boolean[] bools = {mLoaded};
+        dest.writeBooleanArray(bools);
+        dest.writeParcelable(mMenu, 0);
     }
 
     public static final Creator CREATOR = new Creator() {

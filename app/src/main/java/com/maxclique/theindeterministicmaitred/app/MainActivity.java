@@ -2,6 +2,9 @@ package com.maxclique.theindeterministicmaitred.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import java.util.List;
 
@@ -42,5 +45,18 @@ public class MainActivity extends Activity
     public void onPause() {
         super.onPause();
         mRestaurants.save();
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return mFHelper.prepareOptionsMenu(menu, getMenuInflater());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mFHelper.optionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

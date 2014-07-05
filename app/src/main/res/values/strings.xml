@@ -9,4 +9,6 @@
     <string name="enter_restaurant_name">Enter a Restaurant Name</string>
     <string name="added">Added</string>
 
+    <string name="action_add">Add</string>
+
 </resources>

@@ -2,6 +2,7 @@ package com.maxclique.theindeterministicmaitred.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,12 +24,14 @@ public class MainActivity extends Activity
 
         mFHelper = new FragmentHelper(this, R.id.main_container);
         setContentView(R.layout.activity_main);
-        mFHelper.goToHome();
+        mFHelper.goTo(FragmentHelper.SHOW_RESTAURANTS, null);
     }
 
     public void displayShowMenu(Restaurant restaurant) {
         mRestaurants.loadRestaurant(restaurant);
-        mFHelper.goToShowMenu(restaurant);
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", restaurant);
+        mFHelper.goTo(FragmentHelper.SHOW_MENU, args);
     }
 
     public List<Restaurant> getRestaurants() {
@@ -48,8 +51,8 @@ public class MainActivity extends Activity
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return mFHelper.prepareOptionsMenu(menu, getMenuInflater());
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return mFHelper.createOptionsMenu(menu, getMenuInflater());
     }
 
     @Override

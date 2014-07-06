@@ -15,8 +15,8 @@ import android.view.MenuItem;
  */
 public class FragmentHelper {
 
-    private final int SHOW_RESTAURANTS = 0;
-    private final int SHOW_MENU = 1;
+    public static final int SHOW_RESTAURANTS = 0;
+    public static final int SHOW_MENU = 1;
 
     private Activity mActivity;
     private FragmentManager mFManager;
@@ -28,17 +28,7 @@ public class FragmentHelper {
         mContainerResource = containerResource;
     }
 
-    public void goToHome() {
-        goTo(SHOW_RESTAURANTS, null);
-    }
-
-    public void goToShowMenu(Restaurant restaurant) {
-        Bundle args = new Bundle();
-        args.putParcelable("restaurant", restaurant);
-        goTo(SHOW_MENU, args);
-    }
-
-    private void goTo(int destination, Bundle args) {
+    public void goTo(int destination, Bundle args) {
         FragmentTransaction ft = mFManager.beginTransaction();
         Fragment fragment;
         switch (destination) {
@@ -54,13 +44,9 @@ public class FragmentHelper {
         if (args != null) {
             fragment.setArguments(args);
         }
+        fragment.setHasOptionsMenu(true);
         ft.replace(mContainerResource, fragment, Integer.toString(destination))
                 .addToBackStack(null).commit();
-    }
-
-    private void setActionBar(boolean setUpEnabled) {
-        ActionBar actionBar = mActivity.getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(setUpEnabled);
     }
 
     public void refreshCurrentFragment() {
@@ -69,16 +55,17 @@ public class FragmentHelper {
         fragment.refresh();
     }
 
-    public boolean prepareOptionsMenu(Menu menu, MenuInflater menuInflater) {
+    public boolean createOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menuInflater.inflate(R.menu.add_item_menu, menu);
+        ActionBar actionBar = mActivity.getActionBar();
         int currentFragment = Integer.parseInt(
                 mFManager.findFragmentById(mContainerResource).getTag());
         switch (currentFragment) {
             case SHOW_RESTAURANTS:
-                setActionBar(false);
+                actionBar.setDisplayHomeAsUpEnabled(false);
                 break;
             case SHOW_MENU:
-                setActionBar(true);
+                actionBar.setDisplayHomeAsUpEnabled(true);
                 break;
         }
         return true;

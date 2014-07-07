@@ -8,8 +8,14 @@ import android.os.Parcelable;
  */
 public class Dish implements Parcelable {
 
-    public Dish(Parcel source) {
+    String mName;
 
+    public Dish(Parcel source) {
+        mName = source.readString();
+    }
+
+    public String getName() {
+        return mName;
     }
 
     @Override
@@ -19,6 +25,7 @@ public class Dish implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mName);
     }
 
     public static final Creator CREATOR = new Creator() {

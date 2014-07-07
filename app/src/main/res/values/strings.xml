@@ -10,5 +10,8 @@
     <string name="added">Added</string>
 
     <string name="action_add">Add</string>
+    <string name="action_search">Search</string>
+
+    <string name="enter_dish_name">Enter a Dish Name</string>
 
 </resources>

@@ -5,10 +5,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * Created by Austin on 6/30/2014.
@@ -70,7 +74,9 @@ public class FragmentHelper {
                 menuInflater.inflate(R.menu.add_item_menu, menu);
                 break;
             case ADD_DISH:
-                setHomeButtonBack(true);
+                View customActionBar = setCustomActionBar(R.layout.done_cancel_actionbar);
+                setActionBarDone(customActionBar);
+                setActionBarCancel(customActionBar);
                 break;
         }
         return true;
@@ -95,6 +101,43 @@ public class FragmentHelper {
         }
     }
 
+    private View setCustomActionBar(int actionBarResource) {
+        ActionBar actionBar = mActivity.getActionBar();
+        LayoutInflater inflater = (LayoutInflater) actionBar.getThemedContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View actionBarView = inflater.inflate(actionBarResource, null);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM
+                | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setCustomView(actionBarView, new ActionBar.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        return actionBarView;
+    }
+
+    private void setActionBarDone(View actionBar) {
+        actionBar.findViewById(R.id.actionbar_done).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DoneableFragment fragment = (DoneableFragment) getCurrentFragment();
+                        fragment.onActionDone();
+                    }
+                }
+        );
+    }
+
+    private void setActionBarCancel(View actionBar) {
+        actionBar.findViewById(R.id.actionbar_cancel).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CancelableFragment fragment = (CancelableFragment) getCurrentFragment();
+                        fragment.onActionCancel();
+                    }
+                }
+        );
+    }
+
     public boolean optionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
@@ -115,5 +158,13 @@ public class FragmentHelper {
 
     public interface AddableFragment {
         public void onActionAdd();
+    }
+
+    public interface DoneableFragment {
+        public void onActionDone();
+    }
+
+    public interface CancelableFragment {
+        public void onActionCancel();
     }
 }

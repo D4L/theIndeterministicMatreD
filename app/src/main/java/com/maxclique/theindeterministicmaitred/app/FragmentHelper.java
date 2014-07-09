@@ -66,10 +66,12 @@ public class FragmentHelper {
     public boolean createOptionsMenu(Menu menu, MenuInflater menuInflater) {
         switch (getCurrentFragmentId()) {
             case SHOW_RESTAURANTS:
+                setRegularActionBar();
                 setHomeButtonBack(false);
                 menuInflater.inflate(R.menu.add_and_search_item_menu, menu);
                 break;
             case SHOW_MENU:
+                setRegularActionBar();
                 setHomeButtonBack(true);
                 menuInflater.inflate(R.menu.add_item_menu, menu);
                 break;
@@ -99,6 +101,11 @@ public class FragmentHelper {
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setHomeButtonEnabled(false);
         }
+    }
+
+    private void setRegularActionBar() {
+        ActionBar actionBar = mActivity.getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
     }
 
     private View setCustomActionBar(int actionBarResource) {

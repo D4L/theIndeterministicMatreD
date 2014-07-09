@@ -10,6 +10,10 @@ public class Dish implements Parcelable {
 
     String mName;
 
+    public Dish(String name) {
+        mName = name;
+    }
+
     public Dish(Parcel source) {
         mName = source.readString();
     }

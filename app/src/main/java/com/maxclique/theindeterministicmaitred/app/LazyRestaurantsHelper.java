@@ -74,6 +74,7 @@ public class LazyRestaurantsHelper {
 
     public interface LazyResource {
         public boolean isLoaded();
+
         public void setLoaded(boolean loaded);
     }
 }

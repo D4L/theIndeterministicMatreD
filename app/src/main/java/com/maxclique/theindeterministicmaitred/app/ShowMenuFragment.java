@@ -69,7 +69,7 @@ public class ShowMenuFragment extends Fragment implements FragmentHelper.Addable
 
     @Override
     public void onActionAdd() {
-        ((MainActivity)getActivity()).displayAddDish(mRestaurant);
+        ((MainActivity) getActivity()).displayAddDish(mRestaurant);
     }
 
 }

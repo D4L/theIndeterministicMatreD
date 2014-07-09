@@ -38,6 +38,10 @@ public class Restaurant implements LazyRestaurantsHelper.LazyResource, Parcelabl
         mMenu = menu;
     }
 
+    public void addDish(Dish dish) {
+        mMenu.addDish(dish);
+    }
+
     @Override
     public boolean isLoaded() {
         return mLoaded;

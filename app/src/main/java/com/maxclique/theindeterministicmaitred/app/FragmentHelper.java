@@ -34,27 +34,30 @@ public class FragmentHelper {
     }
 
     public void goTo(int destination, Bundle args) {
-        FragmentTransaction ft = mFManager.beginTransaction();
-        Fragment fragment;
-        switch (destination) {
-            case SHOW_RESTAURANTS:
-                fragment = new ShowRestaurantsFragment();
-                break;
-            case SHOW_MENU:
-                fragment = new ShowMenuFragment();
-                break;
-            case ADD_DISH:
-                fragment = new AddDishFragment();
-                break;
-            default:
-                fragment = new ShowRestaurantsFragment();
+        if (mFManager.popBackStackImmediate(Integer.toString(destination), 0)) {
+            return;
         }
+        FragmentTransaction ft = mFManager.beginTransaction();
+        Fragment fragment = resolveFragment(destination);
         if (args != null) {
             fragment.setArguments(args);
         }
         fragment.setHasOptionsMenu(true);
         ft.replace(mContainerResource, fragment, Integer.toString(destination))
-                .addToBackStack(null).commit();
+                .addToBackStack(Integer.toString(destination)).commit();
+    }
+
+    private Fragment resolveFragment(int destination) {
+        switch (destination) {
+            case SHOW_RESTAURANTS:
+                return new ShowRestaurantsFragment();
+            case SHOW_MENU:
+                return new ShowMenuFragment();
+            case ADD_DISH:
+                return new AddDishFragment();
+            default:
+                return new ShowRestaurantsFragment();
+        }
     }
 
     public void refreshCurrentFragment() {

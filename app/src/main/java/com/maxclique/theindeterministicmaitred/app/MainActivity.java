@@ -1,6 +1,7 @@
 package com.maxclique.theindeterministicmaitred.app;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,8 +9,7 @@ import android.view.MenuItem;
 import java.util.List;
 
 
-public class MainActivity extends Activity
-        implements ShowRestaurantsFragment.OnAddRestaurantListener {
+public class MainActivity extends Activity {
 
     private FragmentHelper mFHelper;
     private LazyRestaurantsHelper mRestaurants;
@@ -22,6 +22,10 @@ public class MainActivity extends Activity
 
         mFHelper = new FragmentHelper(this, R.id.main_container);
         setContentView(R.layout.activity_main);
+        displayRestaurantList();
+    }
+
+    public void displayRestaurantList() {
         mFHelper.goTo(FragmentHelper.SHOW_RESTAURANTS, null);
     }
 
@@ -38,14 +42,16 @@ public class MainActivity extends Activity
         mFHelper.goTo(FragmentHelper.ADD_DISH, args);
     }
 
+    public void displayAddRestaurant() {
+        mFHelper.goTo(FragmentHelper.ADD_RESTAURANT, null);
+    }
+
     public List<Restaurant> getRestaurants() {
         return mRestaurants.getRestaurantList();
     }
 
-    @Override
-    public void onAddRestaurant(Restaurant restaurant) {
+    public void addRestaurant(Restaurant restaurant) {
         mRestaurants.addRestaurant(restaurant);
-        mFHelper.refreshCurrentFragment();
     }
 
     @Override

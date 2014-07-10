@@ -21,25 +21,9 @@ import java.util.List;
 /**
  * Created by Austin on 6/30/2014.
  */
-public class ShowRestaurantsFragment extends Fragment
-        implements FragmentHelper.RefreshableFragment {
-
-    private OnAddRestaurantListener mOnAddRestaurantListener;
+public class ShowRestaurantsFragment extends Fragment implements FragmentHelper.AddableFragment {
 
     private RestaurantAdapter mRestaurantAdapter;
-    private EditText mWidgetTextBox;
-    private ImageButton mActionButton;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mOnAddRestaurantListener = (OnAddRestaurantListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() +
-                    " must implement OnAddRestaurantListener");
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup,
@@ -53,20 +37,7 @@ public class ShowRestaurantsFragment extends Fragment
         restaurantList.setAdapter(mRestaurantAdapter);
         restaurantList.setOnItemClickListener(new RestaurantOnItemClickListener(getActivity()));
 
-        mWidgetTextBox = (EditText) view.findViewById(R.id.restaurant_widget_text_box);
-        mActionButton = (ImageButton) view.findViewById(R.id.restaurant_widget_action_button);
-        mActionButton.setOnClickListener(new ActionButtonOnClickListener());
-
         return view;
-    }
-
-    @Override
-    public void refresh() {
-        refreshListView();
-    }
-
-    private void refreshListView() {
-        mRestaurantAdapter.notifyDataSetChanged();
     }
 
     private class RestaurantAdapter extends ArrayAdapter<Restaurant> {
@@ -112,26 +83,8 @@ public class ShowRestaurantsFragment extends Fragment
         }
     }
 
-    private class ActionButtonOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            String restaurantName = mWidgetTextBox.getText().toString();
-            if (restaurantName.equals("")) {
-                Toast toast = Toast.makeText(getActivity(),
-                        R.string.enter_restaurant_name, Toast.LENGTH_SHORT);
-                toast.show();
-                return;
-            }
-            Restaurant restaurant = new Restaurant(restaurantName);
-            mOnAddRestaurantListener.onAddRestaurant(restaurant);
-            mWidgetTextBox.setText("");
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(mWidgetTextBox.getWindowToken(), 0);
-        }
-    }
-
-    public interface OnAddRestaurantListener {
-        public void onAddRestaurant(Restaurant restaurant);
+    @Override
+    public void onActionAdd() {
+        ((MainActivity)getActivity()).displayAddRestaurant();
     }
 }

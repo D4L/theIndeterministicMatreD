@@ -22,6 +22,7 @@ public class FragmentHelper {
     public static final int SHOW_RESTAURANTS = 0;
     public static final int SHOW_MENU = 1;
     public static final int ADD_DISH = 2;
+    public static final int ADD_RESTAURANT = 3;
 
     private Activity mActivity;
     private FragmentManager mFManager;
@@ -55,18 +56,15 @@ public class FragmentHelper {
                 return new ShowMenuFragment();
             case ADD_DISH:
                 return new AddDishFragment();
+            case ADD_RESTAURANT:
+                return new AddRestaurantFragment();
             default:
                 return new ShowRestaurantsFragment();
         }
     }
 
-    public void refreshCurrentFragment() {
-        RefreshableFragment fragment = (RefreshableFragment)
-                mFManager.findFragmentById(mContainerResource);
-        fragment.refresh();
-    }
-
     public boolean createOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        View customActionBar;
         switch (getCurrentFragmentId()) {
             case SHOW_RESTAURANTS:
                 setRegularActionBar();
@@ -79,7 +77,12 @@ public class FragmentHelper {
                 menuInflater.inflate(R.menu.add_item_menu, menu);
                 break;
             case ADD_DISH:
-                View customActionBar = setCustomActionBar(R.layout.done_cancel_actionbar);
+                customActionBar = setCustomActionBar(R.layout.done_cancel_actionbar);
+                setActionBarDone(customActionBar);
+                setActionBarCancel(customActionBar);
+                break;
+            case ADD_RESTAURANT:
+                customActionBar = setCustomActionBar(R.layout.done_cancel_actionbar);
                 setActionBarDone(customActionBar);
                 setActionBarCancel(customActionBar);
                 break;
@@ -160,10 +163,6 @@ public class FragmentHelper {
                 return true;
         }
         return false;
-    }
-
-    public interface RefreshableFragment {
-        public void refresh();
     }
 
     public interface AddableFragment {

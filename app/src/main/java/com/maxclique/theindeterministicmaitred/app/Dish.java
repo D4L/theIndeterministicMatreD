@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 public class Dish implements Parcelable {
 
-    String mName;
+    private String mName;
 
     public Dish(String name) {
         mName = name;

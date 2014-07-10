@@ -9,6 +9,7 @@ import java.io.File;
  */
 public class InternalFileHelper {
     private final String restaurantList = "restaurant_list";
+    private final String restaurantPrefix = "restaurant_";
     private Context mContext;
 
     public InternalFileHelper(Context context) {
@@ -17,6 +18,10 @@ public class InternalFileHelper {
 
     public File getRestaurantFile() {
         return new File(mContext.getFilesDir(), restaurantList);
+    }
+
+    public File getRestaurantFile(Restaurant restaurant) {
+        return new File(mContext.getFilesDir(), restaurantPrefix + restaurant.getId());
     }
 
 }

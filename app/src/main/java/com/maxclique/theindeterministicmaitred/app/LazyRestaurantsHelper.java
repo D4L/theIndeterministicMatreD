@@ -36,12 +36,15 @@ public class LazyRestaurantsHelper {
                 BufferedReader buffReader = new BufferedReader(new FileReader(restaurantsFile));
                 String line;
                 while ((line = buffReader.readLine()) != null) {
-                    mRestaurants.add(new Restaurant(line));
+                    String[] lineArray = line.split(",");
+                    Restaurant restaurant = new Restaurant(lineArray[0], lineArray[1]);
+                    mRestaurants.add(restaurant);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
         return mRestaurants;
     }
 
@@ -54,6 +57,20 @@ public class LazyRestaurantsHelper {
             return;
         }
         RestaurantMenu menu = new RestaurantMenu();
+        try {
+            // Add dishes if there is a restaurant file
+            File restaurantFile = mFileHelper.getRestaurantFile(restaurant);
+            if (restaurantFile.exists()) {
+                BufferedReader buffReader = new BufferedReader(
+                        new FileReader(restaurantFile));
+                String line;
+                while ((line = buffReader.readLine()) != null) {
+                    menu.addDish(new Dish(line));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         restaurant.setMenu(menu);
         restaurant.setLoaded(true);
     }
@@ -62,19 +79,45 @@ public class LazyRestaurantsHelper {
         try {
             File restaurantsFile = mFileHelper.getRestaurantFile();
             FileOutputStream outStream = mContext.openFileOutput(
-                    restaurantsFile.getName(), 0);
-            for (int i = 0; i < mRestaurants.size(); ++i) {
-                outStream.write(mRestaurants.get(i).getName().getBytes());
-                outStream.write('\n');
+                    restaurantsFile.getName(), Context.MODE_PRIVATE);
+            for (Restaurant restaurant : mRestaurants) {
+                writeRestaurantLine(restaurant, outStream);
+                if (restaurant.isDirty()) {
+                    File restaurantFile = mFileHelper.getRestaurantFile(restaurant);
+                    FileOutputStream restaurantOutStream = mContext.openFileOutput(
+                            restaurantFile.getName(), Context.MODE_PRIVATE);
+                    writeRestaurantFile(restaurant, restaurantOutStream);
+                    restaurant.setDirty(false);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private void writeRestaurantLine(Restaurant restaurant,
+                                     FileOutputStream outStream) throws IOException {
+        outStream.write(restaurant.getName().getBytes());
+        outStream.write(',');
+        outStream.write(restaurant.getId().getBytes());
+        outStream.write('\n');
+    }
+
+    private void writeRestaurantFile(Restaurant restaurant,
+                                     FileOutputStream outStream) throws IOException {
+        for (Dish dish : restaurant.getMenu().getDishes()) {
+            outStream.write(dish.getName().getBytes());
+            outStream.write('\n');
+        }
+    }
+
     public interface LazyResource {
         public boolean isLoaded();
 
+        public boolean isDirty();
+
         public void setLoaded(boolean loaded);
+
+        public void setDirty(boolean dirty);
     }
 }

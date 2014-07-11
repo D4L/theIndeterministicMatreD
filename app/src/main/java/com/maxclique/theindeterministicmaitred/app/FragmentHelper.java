@@ -44,6 +44,7 @@ public class FragmentHelper {
             fragment.setArguments(args);
         }
         fragment.setHasOptionsMenu(true);
+
         ft.replace(mContainerResource, fragment, Integer.toString(destination))
                 .addToBackStack(Integer.toString(destination)).commit();
     }
@@ -159,8 +160,20 @@ public class FragmentHelper {
                 fragment.onActionAdd();
                 return true;
             case android.R.id.home:
-                mFManager.popBackStack();
+                goBack();
                 return true;
+        }
+        return false;
+    }
+
+    public boolean goBack() {
+        if (mFManager.getBackStackEntryCount() > 1) {
+            int currentFragmentId;
+            do {
+                mFManager.popBackStackImmediate();
+                currentFragmentId = getCurrentFragmentId();
+            } while (currentFragmentId == ADD_DISH || currentFragmentId == ADD_RESTAURANT);
+            return true;
         }
         return false;
     }

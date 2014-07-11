@@ -1,7 +1,6 @@
 package com.maxclique.theindeterministicmaitred.app;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,5 +70,12 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!mFHelper.goBack()) {
+            super.onBackPressed();
+        }
     }
 }

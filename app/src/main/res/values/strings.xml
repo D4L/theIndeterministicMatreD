@@ -14,6 +14,7 @@
     <string name="get_dish">Choose Dish</string>
     <string name="ok_button_text">Ok!</string>
     <string name="reroll_button_text">reroll(%1$d)</string>
+    <string name="enjoy_dish">Enjoy your</string>
 
     <string name="action_add">Add</string>
     <string name="action_search">Search</string>

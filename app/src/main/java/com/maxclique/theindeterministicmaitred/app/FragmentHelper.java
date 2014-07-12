@@ -25,6 +25,7 @@ public class FragmentHelper {
     public static final int ADD_RESTAURANT = 3;
     public static final int RESTAURANT_NAV = 4;
     public static final int CHOOSE_DISH = 5;
+    public static final int RATE_MEAL = 6;
 
     private Activity mActivity;
     private FragmentManager mFManager;
@@ -65,6 +66,8 @@ public class FragmentHelper {
                 return new RestaurantNavFragment();
             case CHOOSE_DISH:
                 return new ChooseDishFragment();
+            case RATE_MEAL:
+                return new RateMealFragment();
             default:
                 return new ShowRestaurantsFragment();
         }
@@ -84,10 +87,6 @@ public class FragmentHelper {
                 menuInflater.inflate(R.menu.add_item_menu, menu);
                 break;
             case ADD_DISH:
-                customActionBar = setCustomActionBar(R.layout.done_cancel_actionbar);
-                setActionBarDone(customActionBar);
-                setActionBarCancel(customActionBar);
-                break;
             case ADD_RESTAURANT:
                 customActionBar = setCustomActionBar(R.layout.done_cancel_actionbar);
                 setActionBarDone(customActionBar);
@@ -95,6 +94,7 @@ public class FragmentHelper {
                 break;
             case RESTAURANT_NAV:
             case CHOOSE_DISH:
+            case RATE_MEAL:
                 setRegularActionBar();
                 setHomeButtonBack(true);
                 break;

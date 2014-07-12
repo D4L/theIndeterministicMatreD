@@ -77,6 +77,7 @@ public class ChooseDishFragment extends Fragment {
     private class ConfirmOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            ((MainActivity)getActivity()).displayRateMeal();
         }
     }
 

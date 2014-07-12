@@ -9,6 +9,10 @@
     <string name="enter_restaurant_name">Enter a Restaurant Name</string>
     <string name="added">Added</string>
 
+    <string name="view_menu">View Menu</string>
+    <string name="get_dish">Choose Dish</string>
+    <string name="ok_button_text">Ok!</string>
+
     <string name="action_add">Add</string>
     <string name="action_search">Search</string>
     <string name="action_done">Done</string>

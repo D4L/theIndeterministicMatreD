@@ -28,6 +28,13 @@ public class MainActivity extends Activity {
         mFHelper.goTo(FragmentHelper.SHOW_RESTAURANTS, null);
     }
 
+    public void displayRestaurantNav(Restaurant restaurant) {
+        mRestaurants.loadRestaurant(restaurant);
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", restaurant);
+        mFHelper.goTo(FragmentHelper.RESTAURANT_NAV, args);
+    }
+
     public void displayShowMenu(Restaurant restaurant) {
         mRestaurants.loadRestaurant(restaurant);
         Bundle args = new Bundle();

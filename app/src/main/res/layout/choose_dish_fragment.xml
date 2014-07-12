@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/chosen_dish"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/confirm_dish_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chosen_dish"
+        android:layout_weight="0.5"
+        android:text="@string/ok_button_text"/>
+
+    <Button
+        android:id="@+id/reroll_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chosen_dish"
+        android:layout_toRightOf="@id/confirm_dish_button"
+        android:layout_weight="0.5"/>
+
+</RelativeLayout>

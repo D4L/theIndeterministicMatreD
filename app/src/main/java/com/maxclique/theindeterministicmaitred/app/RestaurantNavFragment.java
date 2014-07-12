@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.List;
 
 /**
  * Created by Austin on 7/11/2014.
@@ -41,6 +44,10 @@ public class RestaurantNavFragment extends Fragment {
     private class GetDishOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            if (mRestaurant.getMenu().getDishes().size() == 0) {
+                Toast.makeText(getActivity(), R.string.add_dish_first, Toast.LENGTH_SHORT).show();
+                return;
+            }
             ((MainActivity) getActivity()).displayChooseDish(mRestaurant);
         }
     }

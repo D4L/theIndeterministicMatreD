@@ -6,6 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Austin on 7/11/2014.
@@ -17,25 +22,30 @@ public class ChooseDishFragment extends Fragment {
     private Restaurant mRestaurant;
     private String mRerollText;
     private Button mRerollButton;
+    private TextView mChosenDishTextView;
     private int mRerollsLeft;
+    private List<Dish> mPrevRandom;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup,
                              Bundle savedInstanceState) {
         View view = layoutInflater.inflate(R.layout.choose_dish_fragment, viewGroup, false);
 
+        mChosenDishTextView = (TextView) view.findViewById(R.id.chosen_dish);
         view.findViewById(R.id.confirm_dish_button).setOnClickListener(
                 new ConfirmOnClickListener());
+
+        mRestaurant = grabRestaurantFromArgs();
 
         mRerollButton = (Button) view.findViewById(R.id.reroll_button);
         mRerollButton.setOnClickListener(
                 new RerollOnClickListener());
         mRerollText = getResources().getString(R.string.reroll_button_text);
-        mRerollsLeft = TOTAL_REROLLS;
+        mRerollsLeft = Math.min(TOTAL_REROLLS, mRestaurant.getMenu().getDishes().size() - 1);
 
+        mPrevRandom = new ArrayList<Dish>();
         setRerollButton();
-
-        mRestaurant = grabRestaurantFromArgs();
+        setNewRandomDish();
 
         return view;
     }
@@ -51,6 +61,19 @@ public class ChooseDishFragment extends Fragment {
         }
     }
 
+    private void setNewRandomDish() {
+        Dish newRandomDish;
+        Random rand = new Random();
+        int newRandomDishIndex;
+        List<Dish> restaurantDishes = mRestaurant.getMenu().getDishes();
+        do {
+            newRandomDishIndex = rand.nextInt(restaurantDishes.size());
+            newRandomDish = restaurantDishes.get(newRandomDishIndex);
+        } while (mPrevRandom.contains(newRandomDish));
+        mChosenDishTextView.setText(newRandomDish.getName());
+        mPrevRandom.add(newRandomDish);
+    }
+
     private class ConfirmOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -60,6 +83,7 @@ public class ChooseDishFragment extends Fragment {
     private class RerollOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            setNewRandomDish();
             --mRerollsLeft;
             setRerollButton();
         }

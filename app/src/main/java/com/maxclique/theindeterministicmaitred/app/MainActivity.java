@@ -35,6 +35,12 @@ public class MainActivity extends Activity {
         mFHelper.goTo(FragmentHelper.RESTAURANT_NAV, args);
     }
 
+    public void displayChooseDish(Restaurant restaurant) {
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", restaurant);
+        mFHelper.goTo(FragmentHelper.CHOOSE_DISH, args);
+    }
+
     public void displayShowMenu(Restaurant restaurant) {
         mRestaurants.loadRestaurant(restaurant);
         Bundle args = new Bundle();

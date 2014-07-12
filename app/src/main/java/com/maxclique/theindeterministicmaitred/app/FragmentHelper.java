@@ -24,6 +24,7 @@ public class FragmentHelper {
     public static final int ADD_DISH = 2;
     public static final int ADD_RESTAURANT = 3;
     public static final int RESTAURANT_NAV = 4;
+    public static final int CHOOSE_DISH = 5;
 
     private Activity mActivity;
     private FragmentManager mFManager;
@@ -62,6 +63,8 @@ public class FragmentHelper {
                 return new AddRestaurantFragment();
             case RESTAURANT_NAV:
                 return new RestaurantNavFragment();
+            case CHOOSE_DISH:
+                return new ChooseDishFragment();
             default:
                 return new ShowRestaurantsFragment();
         }
@@ -91,6 +94,7 @@ public class FragmentHelper {
                 setActionBarCancel(customActionBar);
                 break;
             case RESTAURANT_NAV:
+            case CHOOSE_DISH:
                 setRegularActionBar();
                 setHomeButtonBack(true);
                 break;

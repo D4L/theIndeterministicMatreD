@@ -41,7 +41,7 @@ public class RestaurantNavFragment extends Fragment {
     private class GetDishOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-
+            ((MainActivity) getActivity()).displayChooseDish(mRestaurant);
         }
     }
 }

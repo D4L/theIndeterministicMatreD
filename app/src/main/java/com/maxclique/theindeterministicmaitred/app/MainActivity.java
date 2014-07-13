@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,8 +42,11 @@ public class MainActivity extends Activity {
         mFHelper.goTo(FragmentHelper.CHOOSE_DISH, args);
     }
 
-    public void displayRateMeal() {
-        mFHelper.goTo(FragmentHelper.RATE_MEAL, null);
+    public void displayRateMeal(Restaurant restaurant, ArrayList<Dish> prevDishes) {
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", restaurant);
+        args.putParcelableArrayList("prevDishes", prevDishes);
+        mFHelper.goTo(FragmentHelper.RATE_MEAL, args);
     }
 
     public void displayShowMenu(Restaurant restaurant) {

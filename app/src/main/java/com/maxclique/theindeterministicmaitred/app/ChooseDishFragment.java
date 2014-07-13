@@ -24,7 +24,7 @@ public class ChooseDishFragment extends Fragment {
     private Button mRerollButton;
     private TextView mChosenDishTextView;
     private int mRerollsLeft;
-    private List<Dish> mPrevRandom;
+    private ArrayList<Dish> mPrevRandom;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup,
@@ -77,7 +77,7 @@ public class ChooseDishFragment extends Fragment {
     private class ConfirmOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            ((MainActivity)getActivity()).displayRateMeal();
+            ((MainActivity)getActivity()).displayRateMeal(mRestaurant, mPrevRandom);
         }
     }
 

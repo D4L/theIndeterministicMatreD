@@ -183,7 +183,8 @@ public class FragmentHelper {
             do {
                 mFManager.popBackStackImmediate();
                 currentFragmentId = getCurrentFragmentId();
-            } while (currentFragmentId == ADD_DISH || currentFragmentId == ADD_RESTAURANT);
+            } while (currentFragmentId == ADD_DISH || currentFragmentId == ADD_RESTAURANT ||
+                    currentFragmentId == CHOOSE_DISH || currentFragmentId == RATE_MEAL);
             return true;
         }
         return false;

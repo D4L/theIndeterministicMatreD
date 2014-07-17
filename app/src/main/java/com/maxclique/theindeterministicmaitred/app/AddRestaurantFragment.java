@@ -35,12 +35,14 @@ public class AddRestaurantFragment extends Fragment implements FragmentHelper.Do
             return;
         }
         Restaurant restaurant = new Restaurant(restaurantName);
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", restaurant);
         ((MainActivity) getActivity()).addRestaurant(restaurant);
-        ((MainActivity) getActivity()).displayShowMenu(restaurant);
+        ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.SHOW_MENU, args);
     }
 
     @Override
     public void onActionCancel() {
-        ((MainActivity) getActivity()).displayRestaurantList();
+        ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.SHOW_RESTAURANTS, null);
     }
 }

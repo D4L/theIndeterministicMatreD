@@ -77,7 +77,10 @@ public class ChooseDishFragment extends Fragment {
     private class ConfirmOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            ((MainActivity)getActivity()).displayRateMeal(mRestaurant, mPrevRandom);
+            Bundle args = new Bundle();
+            args.putParcelable("restaurant", mRestaurant);
+            args.putParcelableArrayList("prevDishes", mPrevRandom);
+            ((MainActivity)getActivity()).goTo(FragmentHelper.FragmentId.RATE_MEAL, args);
         }
     }
 

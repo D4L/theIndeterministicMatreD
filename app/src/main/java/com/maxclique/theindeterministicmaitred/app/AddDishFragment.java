@@ -42,12 +42,16 @@ public class AddDishFragment extends Fragment implements FragmentHelper.Doneable
             return;
         }
         mRestaurant.addDish(new Dish(dishName));
-        ((MainActivity) getActivity()).displayShowMenu(mRestaurant);
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", mRestaurant);
+        ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.SHOW_MENU, args);
     }
 
     @Override
     public void onActionCancel() {
-        ((MainActivity) getActivity()).displayShowMenu(mRestaurant);
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", mRestaurant);
+        ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.SHOW_RESTAURANTS, args);
     }
 
 }

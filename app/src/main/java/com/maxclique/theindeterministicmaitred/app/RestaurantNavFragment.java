@@ -37,7 +37,9 @@ public class RestaurantNavFragment extends Fragment {
     private class ViewMenuOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            ((MainActivity) getActivity()).displayShowMenu(mRestaurant);
+            Bundle args = new Bundle();
+            args.putParcelable("restaurant", mRestaurant);
+            ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.SHOW_MENU, args);
         }
     }
 
@@ -48,7 +50,9 @@ public class RestaurantNavFragment extends Fragment {
                 Toast.makeText(getActivity(), R.string.add_dish_first, Toast.LENGTH_SHORT).show();
                 return;
             }
-            ((MainActivity) getActivity()).displayChooseDish(mRestaurant);
+            Bundle args = new Bundle();
+            args.putParcelable("restaurant", mRestaurant);
+            ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.CHOOSE_DISH, args);
         }
     }
 }

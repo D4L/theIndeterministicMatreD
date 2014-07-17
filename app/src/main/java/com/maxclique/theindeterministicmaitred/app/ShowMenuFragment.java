@@ -69,7 +69,9 @@ public class ShowMenuFragment extends Fragment implements FragmentHelper.Addable
 
     @Override
     public void onActionAdd() {
-        ((MainActivity) getActivity()).displayAddDish(mRestaurant);
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", mRestaurant);
+        ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.ADD_DISH, args);
     }
 
 }

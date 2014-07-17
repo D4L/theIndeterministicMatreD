@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class RateMealFragment extends Fragment {
 
     private Restaurant mRestaurant;
     private ArrayList<Dish> mPrevRandom;
+    private RatingBar mRatingBar;
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater, ViewGroup viewGroup,
@@ -27,6 +29,8 @@ public class RateMealFragment extends Fragment {
         ((TextView)view.findViewById(R.id.chosen_dish)).setText(
                 mPrevRandom.get(mPrevRandom.size() - 1).getName());
 
+        mRatingBar = (RatingBar)view.findViewById(R.id.rating_bar);
+
         return view;
     }
 
@@ -36,5 +40,12 @@ public class RateMealFragment extends Fragment {
 
     private ArrayList<Dish> grabPrevDishesFromArgs() {
         return getArguments().getParcelableArrayList("prevDishes");
+    }
+
+    private class DoneOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+
+        }
     }
 }

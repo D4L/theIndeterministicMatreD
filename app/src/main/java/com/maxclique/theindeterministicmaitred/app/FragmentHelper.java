@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,18 +13,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by Austin on 6/30/2014.
  */
 public class FragmentHelper {
 
-    public static final int SHOW_RESTAURANTS = 0;
-    public static final int SHOW_MENU = 1;
-    public static final int ADD_DISH = 2;
-    public static final int ADD_RESTAURANT = 3;
-    public static final int RESTAURANT_NAV = 4;
-    public static final int CHOOSE_DISH = 5;
-    public static final int RATE_MEAL = 6;
+    public enum FragmentId {
+        SHOW_RESTAURANTS, SHOW_MENU, ADD_DISH, ADD_RESTAURANT, RESTAURANT_NAV,
+        CHOOSE_DISH, RATE_MEAL
+    }
+
+    public static List<FragmentId> NON_BACK_FRAGMENTS = Arrays.asList(
+            FragmentId.ADD_DISH, FragmentId.ADD_RESTAURANT,
+            FragmentId.CHOOSE_DISH, FragmentId.RATE_MEAL
+    );
 
     private Activity mActivity;
     private FragmentManager mFManager;
@@ -37,22 +41,22 @@ public class FragmentHelper {
         mContainerResource = containerResource;
     }
 
-    public void goTo(int destination, Bundle args) {
-        if (mFManager.popBackStackImmediate(Integer.toString(destination), 0)) {
+    public void goTo(FragmentId destination, SmartBundle args) {
+        if (mFManager.popBackStackImmediate(destination.toString(), 0)) {
             return;
         }
         FragmentTransaction ft = mFManager.beginTransaction();
         Fragment fragment = resolveFragment(destination);
         if (args != null) {
-            fragment.setArguments(args);
+            fragment.setArguments(args.getBundle());
         }
         fragment.setHasOptionsMenu(true);
 
-        ft.replace(mContainerResource, fragment, Integer.toString(destination))
-                .addToBackStack(Integer.toString(destination)).commit();
+        ft.replace(mContainerResource, fragment, destination.toString())
+                .addToBackStack(destination.toString()).commit();
     }
 
-    private Fragment resolveFragment(int destination) {
+    private Fragment resolveFragment(FragmentId destination) {
         switch (destination) {
             case SHOW_RESTAURANTS:
                 return new ShowRestaurantsFragment();
@@ -102,8 +106,8 @@ public class FragmentHelper {
         return true;
     }
 
-    private int getCurrentFragmentId() {
-        return Integer.parseInt(getCurrentFragment().getTag());
+    private FragmentId getCurrentFragmentId() {
+        return FragmentId.valueOf(getCurrentFragment().getTag());
     }
 
     private Fragment getCurrentFragment() {
@@ -179,12 +183,11 @@ public class FragmentHelper {
 
     public boolean goBack() {
         if (mFManager.getBackStackEntryCount() > 1) {
-            int currentFragmentId;
+            FragmentId currentFragmentId;
             do {
                 mFManager.popBackStackImmediate();
                 currentFragmentId = getCurrentFragmentId();
-            } while (currentFragmentId == ADD_DISH || currentFragmentId == ADD_RESTAURANT ||
-                    currentFragmentId == CHOOSE_DISH || currentFragmentId == RATE_MEAL);
+            } while (NON_BACK_FRAGMENTS.contains(currentFragmentId));
             return true;
         }
         return false;

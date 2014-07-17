@@ -22,48 +22,16 @@ public class MainActivity extends Activity {
 
         mFHelper = new FragmentHelper(this, R.id.main_container);
         setContentView(R.layout.activity_main);
-        displayRestaurantList();
+        goTo(FragmentHelper.FragmentId.SHOW_RESTAURANTS, null);
     }
 
-    public void displayRestaurantList() {
-        mFHelper.goTo(FragmentHelper.SHOW_RESTAURANTS, null);
+    public void goTo(FragmentHelper.FragmentId fragmentId, Bundle args) {
+        SmartBundle smartBundle = new SmartBundle(fragmentId, args);
+        mFHelper.goTo(fragmentId, smartBundle);
     }
 
-    public void displayRestaurantNav(Restaurant restaurant) {
+    public void loadRestaurant(Restaurant restaurant) {
         mRestaurants.loadRestaurant(restaurant);
-        Bundle args = new Bundle();
-        args.putParcelable("restaurant", restaurant);
-        mFHelper.goTo(FragmentHelper.RESTAURANT_NAV, args);
-    }
-
-    public void displayChooseDish(Restaurant restaurant) {
-        Bundle args = new Bundle();
-        args.putParcelable("restaurant", restaurant);
-        mFHelper.goTo(FragmentHelper.CHOOSE_DISH, args);
-    }
-
-    public void displayRateMeal(Restaurant restaurant, ArrayList<Dish> prevDishes) {
-        Bundle args = new Bundle();
-        args.putParcelable("restaurant", restaurant);
-        args.putParcelableArrayList("prevDishes", prevDishes);
-        mFHelper.goTo(FragmentHelper.RATE_MEAL, args);
-    }
-
-    public void displayShowMenu(Restaurant restaurant) {
-        mRestaurants.loadRestaurant(restaurant);
-        Bundle args = new Bundle();
-        args.putParcelable("restaurant", restaurant);
-        mFHelper.goTo(FragmentHelper.SHOW_MENU, args);
-    }
-
-    public void displayAddDish(Restaurant restaurant) {
-        Bundle args = new Bundle();
-        args.putParcelable("restaurant", restaurant);
-        mFHelper.goTo(FragmentHelper.ADD_DISH, args);
-    }
-
-    public void displayAddRestaurant() {
-        mFHelper.goTo(FragmentHelper.ADD_RESTAURANT, null);
     }
 
     public List<Restaurant> getRestaurants() {

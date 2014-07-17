@@ -75,12 +75,15 @@ public class ShowRestaurantsFragment extends Fragment implements FragmentHelper.
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             RestaurantAdapter restaurantAdapter = (RestaurantAdapter) adapterView.getAdapter();
             Restaurant restaurant = restaurantAdapter.getItem(position);
-            ((MainActivity) mActivity).displayRestaurantNav(restaurant);
+            ((MainActivity)mActivity).loadRestaurant(restaurant);
+            Bundle args = new Bundle();
+            args.putParcelable("restaurant", restaurant);
+            ((MainActivity) mActivity).goTo(FragmentHelper.FragmentId.RESTAURANT_NAV, args);
         }
     }
 
     @Override
     public void onActionAdd() {
-        ((MainActivity) getActivity()).displayAddRestaurant();
+        ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.ADD_RESTAURANT, null);
     }
 }

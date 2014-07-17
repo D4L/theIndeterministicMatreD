@@ -6,25 +6,47 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/rate_meal_message"
+        android:id="@+id/enjoy_dish_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/enjoy_dish"/>
+        android:gravity="center_horizontal"
+        android:text="@string/enjoy_dish_text"/>
 
     <TextView
         android:id="@+id/chosen_dish"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rate_meal_message"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/enjoy_dish_message"
+        android:gravity="center_horizontal"
         android:textSize="24sp"/>
 
-    <RatingBar
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/rate_meal_message"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/chosen_dish"
+        android:gravity="center_horizontal"
+        android:text="@string/rate_dish_text"/>
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rate_meal_message"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:numStars="5"
         android:progressDrawable="@drawable/rating_star"
         android:stepSize="1"/>
+
+    <Button
+        android:id="@+id/finish_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rating_bar"
+        android:layout_alignParentRight="true"
+        android:text="@string/action_done"/>
 
 </RelativeLayout>

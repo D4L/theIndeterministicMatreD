@@ -30,6 +30,7 @@ public class RateMealFragment extends Fragment {
                 mPrevRandom.get(mPrevRandom.size() - 1).getName());
 
         mRatingBar = (RatingBar)view.findViewById(R.id.rating_bar);
+        view.findViewById(R.id.finish_rating).setOnClickListener(new DoneOnClickListener());
 
         return view;
     }
@@ -45,7 +46,9 @@ public class RateMealFragment extends Fragment {
     private class DoneOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-
+            Bundle args = new Bundle();
+            args.putParcelable("restaurant", mRestaurant);
+            ((MainActivity) getActivity()).goTo(FragmentHelper.FragmentId.RESTAURANT_NAV, args);
         }
     }
 }
